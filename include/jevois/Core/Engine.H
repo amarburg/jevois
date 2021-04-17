@@ -395,6 +395,10 @@ namespace jevois
           little endian. */
       void readDMPregisterArray(unsigned short reg, unsigned char * vals, size_t num);
 
+      unsigned short getCameraControl( const std::string &param );
+
+      bool setCameraControl( const std::string &param, unsigned int val );
+
     protected:
       //! Run a script from file
       /*! The filename should be absolute. The file should have any of the commands supported by Engine, one per

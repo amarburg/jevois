@@ -141,6 +141,19 @@ namespace
     return jevois::python::engineForPythonModule->readDMPregister(reg);
   }
   
+  unsigned short pythonGetCameraControl( const std::string &par )
+  {
+    if (jevois::python::engineForPythonModule == nullptr) LFATAL("internal error");
+    return jevois::python::engineForPythonModule->getCameraControl(par);
+  }
+
+  void pythonSetCameraControl( const std::string &par, unsigned short val )
+  {
+    if (jevois::python::engineForPythonModule == nullptr) LFATAL("internal error");
+    jevois::python::engineForPythonModule->setCameraControl( par, val );
+  }
+
+
 #ifdef JEVOIS_LDEBUG_ENABLE
   void pythonLDEBUG(std::string const & logmsg) { LDEBUG(logmsg); }
 #else
@@ -180,7 +193,9 @@ BOOST_PYTHON_MODULE(libjevois)
   boost::python::def("readIMUregister", pythonReadIMUregister);
   boost::python::def("writeDMPregister", pythonWriteDMPregister);
   boost::python::def("readDMPregister", pythonReadDMPregister);
-  
+  boost::python::def("getCamControl", pythonGetCameraControl);
+  boost::python::def("setCamControl", pythonSetCameraControl);
+
   // #################### Log.H
   JEVOIS_PYTHON_CONSTANT(LOG_DEBUG);
   JEVOIS_PYTHON_CONSTANT(LOG_INFO);

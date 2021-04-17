@@ -973,6 +973,25 @@ void jevois::Engine::readDMPregisterArray(unsigned short reg, unsigned char * va
 }
 
 // ####################################################################################################
+unsigned short jevois::Engine::getCameraControl( const std::string &param )
+{
+  struct v4l2_control c = { };
+  c.id = camctrlid(param);
+  itsCamera->getControl(c);
+  return c.value;
+}
+
+// ####################################################################################################
+bool jevois::Engine::setCameraControl( const std::string &param, unsigned int val )
+{
+  struct v4l2_control c = { };
+  c.id = camctrlid(param);
+  c.value = val;
+  itsCamera->setControl(c);
+  return true;
+}
+
+// ####################################################################################################
 jevois::VideoMapping const & jevois::Engine::getCurrentVideoMapping() const
 {
   return itsCurrentMapping;
